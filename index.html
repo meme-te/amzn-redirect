@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Amazonへ移動中...</title>
+</head>
+<body>
+<p>Amazonへ移動中...</p>
+<script>
+  var asin = new URLSearchParams(location.search).get('asin') || '';
+  var tag  = 'ganpura000d-22';
+  var web  = 'https://www.amazon.co.jp/dp/' + asin + '?tag=' + tag;
+  if (!asin) { location.href = 'https://www.amazon.co.jp'; }
+  else if (/android/i.test(navigator.userAgent)) {
+    location.href = 'intent://www.amazon.co.jp/dp/' + asin + '#Intent;scheme=https;package=com.amazon.mShop.android.shopping;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+  } else {
+    location.href = 'amzn://products/' + asin;
+    setTimeout(function(){ location.href = web; }, 1500);
+  }
+</script>
+</body>
+</html>
